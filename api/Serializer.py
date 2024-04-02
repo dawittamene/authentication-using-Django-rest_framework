@@ -28,15 +28,15 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class ReigsterSerialzer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])   
-    confirm_password = serializers.CharField(write_only=True, required=True)   
+    password2 = serializers.CharField(write_only=True, required=True)   
     
     class Meta:
         model = User
-        fields = ['email','username', 'password', 'confirm_password']
+        fields = ['email','username', 'password', 'password2']
         
         
     def validate(self, attrs):
-        if attrs ['password']!=attrs['confirm_password']:
+        if attrs ['password']!=attrs['password2']:
             raise serializers.ValidationError(
                 {'password':'password fields does not match'}
             )
