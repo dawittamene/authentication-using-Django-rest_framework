@@ -50,3 +50,9 @@ class ReigsterSerialzer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+    
+class TodoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Todo
+        fields = ['id', 'user', 'title','completed']    
