@@ -4,10 +4,12 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField()
     class Meta:
         model = User
         fields = ['id', 'username','email']
 class ProfileSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField()
     class Meta:
         model = Profile
         fields = ['id','user','full_name','bio','image','verified']        
@@ -53,6 +55,7 @@ class ReigsterSerialzer(serializers.ModelSerializer):
     
     
 class TodoSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField()
     class Meta:
         model = Todo
         fields = ['id', 'user', 'title','completed']    
