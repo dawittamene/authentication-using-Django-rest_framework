@@ -4,9 +4,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 
 class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
 
@@ -19,6 +21,7 @@ class User(AbstractUser):
     
 
 class Profile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=1000)
     bio = models.CharField(max_length=100)
@@ -41,6 +44,7 @@ post_save.connect(save_user_profile, sender=User)
 
 
 class Todo(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     completed = models.BooleanField(default=False)
