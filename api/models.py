@@ -6,7 +6,6 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 import uuid
 
-
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100)
@@ -23,20 +22,13 @@ class Profile(models.Model):
     image = models.ImageField(upload_to="user_images", default="default.jpg")
     verified = models.BooleanField(default=False)
 
-    
-
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)
-
-
-
 
 class Todo(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
