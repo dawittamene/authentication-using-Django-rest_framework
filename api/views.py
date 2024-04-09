@@ -47,10 +47,8 @@ class TodoDetailView(generics.RetrieveUpdateDestroyAPIView):
         queryset = Todo.objects.filter(user_id=user_id, id=todo_id)
         return get_object_or_404(queryset) 
 
-
 class TodoMarkAsCompleted(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TodoSerializer
-    
     def get_object(self):
         user_id = self.kwargs['user_id']
         todo_id = self.kwargs['todo_id']
